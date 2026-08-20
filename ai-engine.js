@@ -41,8 +41,8 @@ const AIEngine = {
     },
 
     getActive(weekData) {
-        // Only consider days that actually have data entered (not future/placeholder days)
-        return weekData.days.filter(d => this.isPresent(d));
+        // Only present days: exclude holidays (hasData=false) and absent days
+        return weekData.days.filter(d => this.hasData(d) && this.isPresent(d));
     },
 
     pct(val) { return Math.min(Math.round(val * 100), 100); },
