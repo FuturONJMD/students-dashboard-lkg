@@ -17,9 +17,14 @@ const AIEngine = {
         return false;
     },
 
+    isHoliday(d) {
+        if (this.isSecondSaturday(d)) return true;
+        if (d.arrival_time && (d.arrival_time.toUpperCase() === 'HOLIDAY' || d.arrival_time.toUpperCase().includes('HOLIDAY'))) return true;
+        return false;
+    },
+
     hasData(d) {
-        // SECOND SATURDAY is a holiday for all classes — never count as school day
-        if (this.isSecondSaturday(d)) return false;
+        if (this.isHoliday(d)) return false;
         if (d.date && d.date !== '' && d.date !== 'N/A') return true;
         if (d.arrival_time && d.arrival_time !== 'N/A') return true;
         if (d.snacks && d.snacks !== 'N/A') return true;
